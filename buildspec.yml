@@ -10,7 +10,8 @@ phases:
       - echo "Build Phase"
 
       # Your conditional commands
-      - if [ "$CODEBUILD_SOURCE_VERSION_TYPE" == "pull_request" ]; then
+      - |
+        if [ "$CODEBUILD_SOURCE_VERSION_TYPE" == "pull_request" ]; then
           echo "This is a pull request build";
           # Additional commands for pull request build
         else
