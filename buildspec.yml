@@ -1,0 +1,35 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+
+  build:
+    commands:
+      - echo "Build Phase"
+
+      # Your conditional commands
+      - if [ "$CODEBUILD_SOURCE_VERSION_TYPE" == "pull_request" ]; then
+          echo "This is a pull request build";
+          # Additional commands for pull request build
+        else
+          echo "This is not a pull request build";
+          # Additional commands for non-pull request build
+        fi
+
+    finally:
+      - echo "Build Phase Finally"
+
+  post_build:
+    commands:
+      - echo "Post Build Phase"
+    finally:
+      - echo "Post Build Phase Finally"
+
+artifacts:
+  files: '**/*'
+
+cache:
+  paths:
+    - '/root/.npm'
