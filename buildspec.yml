@@ -2,8 +2,8 @@ version: 0.2
 env:
   variables:
     S3_BUCKET: my-packages-bucket
-	SELENIUM_VER=4.5.0
-	REQUESTS_VER=2.28.1
+      SELENIUM_VER=4.5.0
+      REQUESTS_VER=2.28.1
 phases:
   install:
     runtime-versions:
@@ -13,7 +13,7 @@ phases:
     commands:
       - echo "Build Phase"
       - yum install -y git make yum-utils rpmdevtools
-	  # export the env variables
+        # export the env variables
       #- echo REACT_APP_ENV=${ENV} >> .env
       #- echo REACT_APP_FIREBASE_API_KEY=${FIREBASE_API_KEY} >> .env
       - mkdir -p /opt/bin && \
