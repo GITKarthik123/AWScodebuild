@@ -24,13 +24,14 @@ phases:
       - curl -# "https://msedgedriver.azureedge.net/$EDGE_VERSION_ID/edgedriver_linux64.zip?alt=media" > "edgedriver-stable.zip" && \
       - unzip edgedriver-stable.zip && \
       - rm -rf edgedriver-stable.zip && \
-      - cp  msedgedriver /opt && \
+      - cp msedgedriver /opt && \
       - mkdir edge && \
       - cd edge && \
       - curl -v -O https://packages.microsoft.com/yumrepos/edge/microsoft-edge-stable-${EDGE_VERSION_ID}-1.x86_64.rpm -L && \
       - rpm2cpio microsoft-edge-stable-${EDGE_VERSION_ID}-1.x86_64.rpm | cpio -idmv && \
       - rm -rf microsoft-edge-stable-${EDGE_VERSION_ID}-1.x86_64.rpm && \
       - cd .. && \
+      - ls edge && \
       - cp -R edge/opt/microsoft/msedge /opt
       - yum install -y python3
       - |
