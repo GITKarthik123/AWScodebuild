@@ -106,7 +106,8 @@ phases:
 #  cp -aR /tmp//usr/share/font /opt/usr/share/ && \
 #  cp -aR /tmp//etc/fonts/ /opt/etc/fonts
       - cd /opt/lib && ln -s libcrypt-nss-2.26.so libcrypt.so.1
-      - pip3 install --target /opt/pylib selenium==$SELENIUM_VER requests==$REQUESTS_VER
+        #pip3 install --target /opt/pylib selenium==$SELENIUM_VER requests==$REQUESTS_VER
+      - pip3 install --target /opt/pylib selenium==4.5.0 requests==2.28.1
       - cd /opt && zip -u -r9 /tmp/edge-layer.zip ./*
       - curl -# "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F$CHROME_STABLE_REVISION_ID%2Fchrome-linux.zip?alt=media" > "chrome-stable.zip" && \
       - unzip "chrome-stable.zip" && \
