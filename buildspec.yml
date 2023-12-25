@@ -138,16 +138,15 @@ phases:
       - rm -rf msedge && \
       - zip -u -r9 /tmp/chrome-layer.zip ./
       - echo "FIRST DOCKERFILE DONE"
-	  ##SECOND DOCKERFILE##
+        ##SECOND DOCKERFILE##
       - cp -R /tmp/chrome-layer.zip /tmp/
       - cp -R /tmp/edge-layer.zip /tmp/
       - unzip /tmp/chrome-layer.zip -d /opt
       - LD_LIBRARY_PATH=/opt/lib
-	  
-# Test chrome driver executable shared libraries are available #
+        # Test chrome driver executable shared libraries are available #
       - test_chrome_driver_dependency_libraries=$(ldd /opt/chromedriver | grep "not found" || echo "no matches")  && \
       - |
-	      if [[ "$test_chrome_driver_dependency_libraries" != "no matches" ]]; then
+        if [[ "$test_chrome_driver_dependency_libraries" != "no matches" ]]; then
           echo "Chrome Driver executable shared libraries check: FAILED"
           echo "Missing libraries for chrome driver executable: $test_chrome_driver_dependency_libraries"
           exit 1; 
@@ -158,8 +157,8 @@ phases:
       - test_chrome_dependency_libraries=$(ldd /opt/chrome-linux/chrome | grep "not found" || echo "no matches")  && \
       - |
         if [[ "$test_chrome_dependency_libraries" != "no matches" ]]; then 
-        echo "Chrome executable shared libraries check: FAILED"
-        echo "Missing libraries for chrome executable: $test_chrome_dependency_libraries" &&
+          echo "Chrome executable shared libraries check: FAILED"
+          echo "Missing libraries for chrome executable: $test_chrome_dependency_libraries" &&
         exit 1;
         fi
       - echo "Chrome executable shared libraries check: PASSED"
@@ -168,7 +167,7 @@ phases:
       - cd /opt && \
       - test_chrome_driver=$(./chromedriver -v | grep "$CHROME_STABLE_REVISION_ID" || echo "no matches")
       - |
-	      if [[ "$test_chrome_driver" = "no matches" ]]; then
+        if [[ "$test_chrome_driver" = "no matches" ]]; then
           echo "Execute chrome driver executable check: FAILED"
           exit 1;
         fi
