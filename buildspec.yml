@@ -36,16 +36,16 @@ phases:
       - |
         yumdownloader -y
 	alsa-lib.x86_64 \
-	atk.x86_64 \
-	at-spi2-atk.x86_64 \
-	at-spi2-core.x86_64 \
+        atk.x86_64 \ 
+	at-spi2-atk.x86_64 \ 
+        at-spi2-core.x86_64 \
 	avahi-libs.x86_64 \
-	bash.x86_64 \
+        bash.x86_64 \ 
 	cairo.x86_64 \
-	chkconfig.x86_64 \
+        chkconfig.x86_64 \
 	cups-libs.x86_64 \
         dbus-libs.x86_64 \
-        elfutils-libs.x86_64 \
+	elfutils-libs.x86_64 \
         elfutils-libelf.x86_64 \
         fribidi.x86_64 \
         glib2.x86_64 \
