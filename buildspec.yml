@@ -113,7 +113,7 @@ phases:
             ##### CHROME STABLE VERSION STEPS#####
       - CHROME_VERSION_INFO=$(curl https://versionhistory.googleapis.com/v1/chrome/platforms/linux/channels/stable/versions | jq '.[]' -r)
       - |
-	      for INDEX_NUM in {0..10}
+        for INDEX_NUM in {0..10}
             do
             CURR_CHROME_VERSION=$(echo "$CHROME_VERSION_INFO" | jq -r ".[$INDEX_NUM].version")
             detailed_info=$(curl -s https://chromium-downloads.herokuapp.com/builds/$CURR_CHROME_VERSION/stable/linux)
