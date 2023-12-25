@@ -4,6 +4,7 @@ env:
     S3_BUCKET: my-packages-bucket
       SELENIUM_VER=4.5.0
       REQUESTS_VER=2.28.1
+      EDGE_VERSION_ID=120.0.2210.91  
 phases:
   install:
     runtime-versions:
@@ -35,7 +36,7 @@ phases:
       - cp -R edge/opt/microsoft/msedge /opt
       - yum install -y python3
       - |
-        yumdownloader -y  
+        yumdownloader -y \
         alsa-lib.x86_64 \
         atk.x86_64 \ 
         at-spi2-atk.x86_64 \ 
