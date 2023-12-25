@@ -47,7 +47,7 @@ phases:
         dbus-libs.x86_64 \
 	elfutils-libs.x86_64 \
         elfutils-libelf.x86_64 \
-        fribidi.x86_64 \
+	fribidi.x86_64 \
         glib2.x86_64 \
         gnu-free-sans-fonts.x86_64 \
         gtk3.x86_64 \
