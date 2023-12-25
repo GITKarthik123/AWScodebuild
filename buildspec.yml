@@ -110,19 +110,20 @@ phases:
       - pip3 install --target /opt/pylib selenium==4.5.0 requests==2.28.1
       - cd /opt && zip -u -r9 /tmp/edge-layer.zip ./*
       - ls -a /tmp
-            ##### CHROME STABLE VERSION STEPS#####
       - CHROME_VERSION_INFO=$(curl https://versionhistory.googleapis.com/v1/chrome/platforms/linux/channels/stable/versions | jq '.[]' -r)
+            ##### CHROME STABLE VERSION STEPS#####
       - |
-        for INDEX_NUM in {0..10}
-            do
-            CURR_CHROME_VERSION=$(echo "$CHROME_VERSION_INFO" | jq -r ".[$INDEX_NUM].version")
-            detailed_info=$(curl -s https://chromium-downloads.herokuapp.com/builds/$CURR_CHROME_VERSION/stable/linux)
-            if [[ "$detailed_info" == "Not Found" ]]
-               then
-               echo "No base revision found for chrome version $CURR_CHROME_VERSION . Will try the next available latest version"
-            else
-               CHROME_STABLE_REVISION_ID=$(echo $detailed_info | jq -r ".artifactsRevision")
-               echo "Chrome Version Number  = $CURR_CHROME_VERSION and Artifact revision-id = $CHROME_STABLE_REVISION_ID"
+        for INDEX_NUM in {0..10}; do
+          CURR_CHROME_VERSION=$(echo "$CHROME_VERSION_INFO" | jq -r ".[$INDEX_NUM].version")
+          detailed_info=$(curl -s https://chromium-downloads.herokuapp.com/builds/$CURR_CHROME_VERSION/stable/linux)
+          if [[ "$detailed_info" == "Not Found" ]]; then
+            echo "No base revision found for chrome version $CURR_CHROME_VERSION . Will try the next available latest version";
+          else
+            CHROME_STABLE_REVISION_ID=$(echo $detailed_info | jq -r ".artifactsRevision")
+            echo "Chrome Version Number  = $CURR_CHROME_VERSION and Artifact revision-id = $CHROME_STABLE_REVISION_ID"
+            # Additional commands for processing the package
+          fi
+        done
       - curl -# "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F$CHROME_STABLE_REVISION_ID%2Fchrome-linux.zip?alt=media" > "chrome-stable.zip" && \
       - unzip "chrome-stable.zip" && \
       - rm -rf "chrome-stable.zip" && \
