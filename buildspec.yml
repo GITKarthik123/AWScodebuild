@@ -139,8 +139,9 @@ phases:
       - zip -u -r9 /tmp/chrome-layer.zip ./
       - echo "FIRST DOCKERFILE DONE"
         ##SECOND DOCKERFILE##
-      - cp -R /tmp/chrome-layer.zip /tmp/
-      - cp -R /tmp/edge-layer.zip /tmp/
+      - ls -lrt /tmp
+      #- cp -R /tmp/chrome-layer.zip /tmp/
+      #- cp -R /tmp/edge-layer.zip /tmp/
       - unzip /tmp/chrome-layer.zip -d /opt
       - LD_LIBRARY_PATH=/opt/lib
         # Test chrome driver executable shared libraries are available #
