@@ -12,16 +12,16 @@ phases:
   build:
     commands:
       - echo "Build Phase"
-	  - yum install -y git make yum-utils rpmdevtools
+      - yum install -y git make yum-utils rpmdevtools
 	  # export the env variables
       #- echo REACT_APP_ENV=${ENV} >> .env
       #- echo REACT_APP_FIREBASE_API_KEY=${FIREBASE_API_KEY} >> .env
-	  - mkdir -p /opt/bin && \
+      - mkdir -p /opt/bin && \
       - mkdir -p /opt/lib && \
       - mkdir -p /opt/etc/fonts && \
       - mkdir -p /opt/usr/share && \
       - mkdir -p /opt/pylib
-	  - curl -# "https://msedgedriver.azureedge.net/$EDGE_VERSION_ID/edgedriver_linux64.zip?alt=media" > "edgedriver-stable.zip" && \
+      - curl -# "https://msedgedriver.azureedge.net/$EDGE_VERSION_ID/edgedriver_linux64.zip?alt=media" > "edgedriver-stable.zip" && \
       - unzip edgedriver-stable.zip && \
       - rm -rf edgedriver-stable.zip && \
       - cp  msedgedriver /opt && \
@@ -32,18 +32,18 @@ phases:
       - rm -rf microsoft-edge-stable-${EDGE_VERSION_ID}-1.x86_64.rpm && \
       - cd .. && \
       - cp -R edge/opt/microsoft/msedge /opt
-	  - yum install -y python3
-	  - |
-	    yumdownloader -y
-	    alsa-lib.x86_64 \
-	    atk.x86_64 \
-	    at-spi2-atk.x86_64 \
-	    at-spi2-core.x86_64 \
-	    avahi-libs.x86_64 \
-	    bash.x86_64 \
-	    cairo.x86_64 \
-	    chkconfig.x86_64 \
-	    cups-libs.x86_64 \
+      - yum install -y python3
+      - |
+        yumdownloader -y
+	alsa-lib.x86_64 \
+	atk.x86_64 \
+	at-spi2-atk.x86_64 \
+	at-spi2-core.x86_64 \
+	avahi-libs.x86_64 \
+	bash.x86_64 \
+	cairo.x86_64 \
+	chkconfig.x86_64 \
+	cups-libs.x86_64 \
         dbus-libs.x86_64 \
         elfutils-libs.x86_64 \
         elfutils-libelf.x86_64 \
@@ -104,21 +104,21 @@ phases:
 #  cp -aR /tmp//usr/share/font /opt/usr/share/ && \
 #  cp -aR /tmp//etc/fonts/ /opt/etc/fonts
       - cd /opt/lib && ln -s libcrypt-nss-2.26.so libcrypt.so.1
-	  - pip3 install --target /opt/pylib selenium==$SELENIUM_VER requests==$REQUESTS_VER
-	  - cd /opt && zip -u -r9 /tmp/edge-layer.zip ./*
-	  - curl -# "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F$CHROME_STABLE_REVISION_ID%2Fchrome-linux.zip?alt=media" > "chrome-stable.zip" && \
-	  - unzip "chrome-stable.zip" && \
-	  - rm -rf "chrome-stable.zip" && \
-	  - cp -R chrome-linux /opt && \
-	  - curl -# "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F$CHROME_STABLE_REVISION_ID%2Fchromedriver_linux64.zip?alt=media" > "chromedriver-stable.zip" && \
-	  - cp chromedriver-stable.zip /opt/chromedrivers && \
-	  - unzip "chromedriver-stable.zip" && \
-	  - rm -rf "chromedriver-stable.zip" && \
-	  - cp -R chromedriver_linux64/chromedriver /opt
-	  - cd /opt && \
-	  - rm -rf msedgedriver && \
-	  - rm -rf msedge && \
-	  - zip -u -r9 /tmp/chrome-layer.zip ./
+      - pip3 install --target /opt/pylib selenium==$SELENIUM_VER requests==$REQUESTS_VER
+      - cd /opt && zip -u -r9 /tmp/edge-layer.zip ./*
+      - curl -# "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F$CHROME_STABLE_REVISION_ID%2Fchrome-linux.zip?alt=media" > "chrome-stable.zip" && \
+      - unzip "chrome-stable.zip" && \
+      - rm -rf "chrome-stable.zip" && \
+      - cp -R chrome-linux /opt && \
+      - curl -# "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F$CHROME_STABLE_REVISION_ID%2Fchromedriver_linux64.zip?alt=media" > "chromedriver-stable.zip" && \
+      - cp chromedriver-stable.zip /opt/chromedrivers && \
+      - unzip "chromedriver-stable.zip" && \
+      - rm -rf "chromedriver-stable.zip" && \
+      - cp -R chromedriver_linux64/chromedriver /opt
+      - cd /opt && \
+      - rm -rf msedgedriver && \
+      - rm -rf msedge && \
+      - zip -u -r9 /tmp/chrome-layer.zip ./
       # Your conditional commands
       - |
         if [ "$CODEBUILD_SOURCE_VERSION_TYPE" == "pull_request" ]; then
