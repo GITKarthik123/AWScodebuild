@@ -10,17 +10,20 @@ phases:
       - echo "Installing Chrome and Chromedriver"
 
       # Install Chrome
-      - curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-      - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-      - apt-get update && apt-get -y install google-chrome-stable
+      - curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --import -
+      - echo "repo_gpgcheck=1" > /etc/yum.repos.d/google-chrome.repo
+      - echo "enabled=1" >> /etc/yum.repos.d/google-chrome.repo
+      - echo "gpgcheck=1" >> /etc/yum.repos.d/google-chrome.repo
+      - echo "gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub" >> /etc/yum.repos.d/google-chrome.repo
+      - echo "name=google-chrome" >> /etc/yum.repos.d/google-chrome.repo
+      - echo "baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64" >> /etc/yum.repos.d/google-chrome.repo
+      - yum install -y google-chrome-stable
 
       # Determine AWS CodeBuild environment architecture
       - AWS_CODEBUILD_ARCH=$(uname -m)
-      - echo $AWS_CODEBUILD_ARCH
 
       # Determine Amazon Linux version
-      - AMAZON_LINUX_VERSION=$(cat /etc/system-release-cpe | cut -d -f5)
-      - echo $AMAZON_LINUX_VERSION
+      - AMAZON_LINUX_VERSION=$(cat /etc/system-release-cpe | cut -d: -f5)
 
       # Download and install the latest Chromedriver based on architecture and Amazon Linux version
       - |
@@ -35,7 +38,6 @@ phases:
         curl -o chromedriver.zip $CHROMEDRIVER_URL
         unzip chromedriver.zip
         chmod +x chromedriver
-        file chromedriver
         mv chromedriver /usr/local/bin/chromedriver
 
   build:
