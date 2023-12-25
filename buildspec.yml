@@ -142,7 +142,7 @@ phases:
       - ls -lrt /tmp
       #- cp -R /tmp/chrome-layer.zip /tmp/
       #- cp -R /tmp/edge-layer.zip /tmp/
-      - unzip /tmp/chrome-layer.zip -d /opt
+      - unzip -o /tmp/chrome-layer.zip -d /opt
       - LD_LIBRARY_PATH=/opt/lib
         # Test chrome driver executable shared libraries are available #
       - test_chrome_driver_dependency_libraries=$(ldd /opt/chromedriver | grep "not found" || echo "no matches")  && \
@@ -173,6 +173,7 @@ phases:
           exit 1;
         fi
       - echo "Chrome driver version info = $test_chrome_driver"
+      - echo SECOND DOCKERFILE COMPLETED
       # Your conditional commands
       - |
         if [ "$CODEBUILD_SOURCE_VERSION_TYPE" == "pull_request" ]; then
