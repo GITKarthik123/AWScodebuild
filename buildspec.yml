@@ -23,7 +23,7 @@ phases:
       - AWS_CODEBUILD_ARCH=$(uname -m)
 
       # Determine Amazon Linux version
-      - AMAZON_LINUX_VERSION=$(cat /etc/system-release-cpe | cut -d: -f5)
+      - AMAZON_LINUX_VERSION=$(cat /etc/system-release-cpe | cut -d -f5)
 
       # Download and install the latest Chromedriver based on architecture and Amazon Linux version
       - |
