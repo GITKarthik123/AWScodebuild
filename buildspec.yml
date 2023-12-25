@@ -167,10 +167,12 @@ phases:
 # Test chrome driver executable #
       - cd /opt && \
       - uname -a
+      - pwd
+      - whoami
       - ls -lrt 
       - file chromedriver
       - chmod +x ./chromedriver
-      - test_chrome_driver=$(./chromedriver -v | grep "$CHROME_STABLE_REVISION_ID" || echo "no matches")
+      - test_chrome_driver=$(/usr/bin/chromedriver -v | grep "$CHROME_STABLE_REVISION_ID" || echo "no matches")
       - |
         if [[ "$test_chrome_driver" = "no matches" ]]; then
           echo "Execute chrome driver executable check FAILED"
