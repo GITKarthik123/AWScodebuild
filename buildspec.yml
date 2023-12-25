@@ -147,28 +147,28 @@ phases:
       - test_chrome_driver_dependency_libraries=$(ldd /opt/chromedriver | grep "not found" || echo "no matches")  && \
       - |
         if [[ "$test_chrome_driver_dependency_libraries" != "no matches" ]]; then
-          echo "Chrome Driver executable shared libraries check: FAILED"
-          echo "Missing libraries for chrome driver executable: $test_chrome_driver_dependency_libraries"
+          echo "Chrome Driver executable shared libraries check FAILED"
+          echo "Missing libraries for chrome driver executable $test_chrome_driver_dependency_libraries"
           exit 1; 
         fi
-      - echo "Chrome Driver executable shared libraries check: PASSED"
+      - echo "Chrome Driver executable shared libraries check PASSED"
 
 # Test chrome driver executable shared libraries are available #
       - test_chrome_dependency_libraries=$(ldd /opt/chrome-linux/chrome | grep "not found" || echo "no matches")  && \
       - |
         if [[ "$test_chrome_dependency_libraries" != "no matches" ]]; then 
-          echo "Chrome executable shared libraries check: FAILED"
-          echo "Missing libraries for chrome executable: $test_chrome_dependency_libraries" &&
+          echo "Chrome executable shared libraries check FAILED"
+          echo "Missing libraries for chrome executable $test_chrome_dependency_libraries" &&
         exit 1;
         fi
-      - echo "Chrome executable shared libraries check: PASSED"
+      - echo "Chrome executable shared libraries check PASSED"
 
 # Test chrome driver executable #
       - cd /opt && \
       - test_chrome_driver=$(./chromedriver -v | grep "$CHROME_STABLE_REVISION_ID" || echo "no matches")
       - |
         if [[ "$test_chrome_driver" = "no matches" ]]; then
-          echo "Execute chrome driver executable check: FAILED"
+          echo "Execute chrome driver executable check FAILED"
           exit 1;
         fi
       - echo "Chrome driver version info = $test_chrome_driver"
