@@ -9,4 +9,7 @@ phases:
       - curl -LO https://amazonlinux.pkgs.org/2023/amazonlinux-x86_64/at-spi2-core-2.40.3-1.amzn2023.0.1.x86_64.rpm
       - curl -LO https://amazonlinux.pkgs.org/2/amazonlinux-core-x86_64/libxkbcommon-0.7.1-1.amzn2.0.2.x86_64.rpm
       - ls -lhrt
-      - yum install -y libatk-bridge2.0-0.rpm libatspi.rpm libxkbcommon0.rpm
+      - yum install -y at-spi2-atk-2.38.0-2.amzn2023.0.2.x86_64.rpm
+      - yum install -y at-spi2-core-2.40.3-1.amzn2023.0.1.x86_64.rpm
+      - yum install -y libxkbcommon-0.7.1-1.amzn2.0.2.x86_64.rpm
+      
