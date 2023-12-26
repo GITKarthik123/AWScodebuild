@@ -6,39 +6,39 @@ phases:
       python: 3.8
 
   pre_build:
-  commands:
-    - echo "Installing Chrome and Chromedriver"
-
-    # Install Chrome
-    - echo "[google-chrome]" | tee /etc/yum.repos.d/google-chrome.repo
-    - echo "name=google-chrome" | tee -a /etc/yum.repos.d/google-chrome.repo
-    - echo "baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64" | tee -a /etc/yum.repos.d/google-chrome.repo
-    - echo "enabled=1" | tee -a /etc/yum.repos.d/google-chrome.repo
-    - echo "gpgcheck=1" | tee -a /etc/yum.repos.d/google-chrome.repo
-    - echo "gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub" | tee -a /etc/yum.repos.d/google-chrome.repo
-    - yum install -y google-chrome-stable
-
-    # Determine AWS CodeBuild environment architecture
-    - AWS_CODEBUILD_ARCH=$(uname -m)
-
-    # Determine Amazon Linux version
-    - AMAZON_LINUX_VERSION=$(cat /etc/system-release-cpe | cut -d -f5)
-    - echo $AMAZON_LINUX_VERSION
-
-    # Download and install the latest Chromedriver based on architecture and Amazon Linux version
-    - |
-      if [ "$AWS_CODEBUILD_ARCH" == "x86_64" ] && [ "$AMAZON_LINUX_VERSION" == "2" ]; then
-        CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-        CHROMEDRIVER_URL="https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-      else
-        echo "Unsupported architecture or Amazon Linux version: $AWS_CODEBUILD_ARCH / $AMAZON_LINUX_VERSION"
-        exit 1
-      fi
-
-      curl -o chromedriver.zip $CHROMEDRIVER_URL
-      unzip chromedriver.zip
-      chmod +x chromedriver
-      mv chromedriver /usr/local/bin/chromedriver
+    commands:
+      - echo "Installing Chrome and Chromedriver"
+  
+      # Install Chrome
+      - echo "[google-chrome]" | tee /etc/yum.repos.d/google-chrome.repo
+      - echo "name=google-chrome" | tee -a /etc/yum.repos.d/google-chrome.repo
+      - echo "baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64" | tee -a /etc/yum.repos.d/google-chrome.repo
+      - echo "enabled=1" | tee -a /etc/yum.repos.d/google-chrome.repo
+      - echo "gpgcheck=1" | tee -a /etc/yum.repos.d/google-chrome.repo
+      - echo "gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub" | tee -a /etc/yum.repos.d/google-chrome.repo
+      - yum install -y google-chrome-stable
+  
+      # Determine AWS CodeBuild environment architecture
+      - AWS_CODEBUILD_ARCH=$(uname -m)
+  
+      # Determine Amazon Linux version
+      - AMAZON_LINUX_VERSION=$(cat /etc/system-release-cpe | cut -d -f5)
+      - echo $AMAZON_LINUX_VERSION
+  
+      # Download and install the latest Chromedriver based on architecture and Amazon Linux version
+      - |
+        if [ "$AWS_CODEBUILD_ARCH" == "x86_64" ] && [ "$AMAZON_LINUX_VERSION" == "2" ]; then
+          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          CHROMEDRIVER_URL="https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+        else
+          echo "Unsupported architecture or Amazon Linux version: $AWS_CODEBUILD_ARCH / $AMAZON_LINUX_VERSION"
+          exit 1
+        fi
+  
+        curl -o chromedriver.zip $CHROMEDRIVER_URL
+        unzip chromedriver.zip
+        chmod +x chromedriver
+        mv chromedriver /usr/local/bin/chromedriver
 
   build:
     commands:
