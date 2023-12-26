@@ -20,7 +20,7 @@ phases:
 
       # Determine Amazon Linux version
       - AMAZON_LINUX_VERSION=$(awk -F/ '/amazon-linux/ {print $4}' /etc/os-release)
-      - echo $AWS_CODEBUILD_ARCH
+      - echo $AMAZON_LINUX_VERSION
 
       # Download and install the latest Chromedriver based on architecture and Amazon Linux version
       - |
