@@ -7,22 +7,17 @@ phases:
 
   pre_build:
     commands:
-      - echo "Installing Chrome and Chromedriver"
+      - echo "Installing Chromedriver"
 
-      # Download and install Google Chrome
-      - CHROME_URL="https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"
-      - curl -O $CHROME_URL
-      - yum localinstall -y google-chrome-stable_current_x86_64.rpm
+      # Determine Amazon Linux version
+      - AMAZON_LINUX_VERSION=$(awk -F= '/^VERSION_ID/ { gsub(/"/, "", $2); print $2 }' /etc/os-release)
 
       # Determine AWS CodeBuild environment architecture
       - AWS_CODEBUILD_ARCH=$(uname -m)
 
-      # Determine Amazon Linux version
-      - AMAZON_LINUX_VERSION=$(awk -F/ '/amazon-linux/ {print $4}' /etc/os-release)
-
       # Download and install the latest Chromedriver based on architecture and Amazon Linux version
       - |
-        if [ "$AWS_CODEBUILD_ARCH" == "x86_64" ] && [ "$AMAZON_LINUX_VERSION" == "2" ]; then
+        if [ "$AWS_CODEBUILD_ARCH" == "aarch64" ] && [ "$AMAZON_LINUX_VERSION" == "2" ]; then
           CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
           CHROMEDRIVER_URL="https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
         else
