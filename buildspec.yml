@@ -145,6 +145,7 @@ phases:
       #- cp -R /tmp/edge-layer.zip /tmp/
       - unzip -o /tmp/chrome-layer.zip -d /opt
       - LD_LIBRARY_PATH=/opt/lib
+      - yum update -y && yum install -y libatk-bridge2.0-0 libxkbcommon0 libatspi
         # Test chrome driver executable shared libraries are available #
       - test_chrome_driver_dependency_libraries=$(ldd /opt/chromedriver | grep "not found" || echo "no matches")  && \
       - |
