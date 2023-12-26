@@ -6,5 +6,9 @@ phases:
       python: 3.9
     commands:
       - wget https://cdn.amazonlinux.com/2/core/2.0/x86_64/6b0225ccc542f3834c95733dcf321ab9f1e77e6ca6817469771a8af7c49efe6c/../../../../../blobstore/0d224ebadae35334ee7144600225e95aacee89483b88715a885db490193a1990/libxkbcommon-0.7.1-1.amzn2.x86_64.rpm
+      - wget https://cdn.amazonlinux.com/al2023/core/guids/9cf1057036ef7d615de550a658447fad88617805da0cfc9b854ba0fb8a668466/x86_64/../../../../blobstore/2c94d42a43a76dde65a22adf7b442a2a61fbc0241c5fd105b3d7d30898f8afcf/at-spi2-atk-2.38.0-2.amzn2023.0.2.x86_64.rpm
+      - wget https://cdn.amazonlinux.com/al2023/core/guids/9cf1057036ef7d615de550a658447fad88617805da0cfc9b854ba0fb8a668466/x86_64/../../../../blobstore/c42918c5d799b2573778469b2b6a643ecbc0a69a385bf07120c763a5bb593e22/at-spi2-core-2.40.3-1.amzn2023.0.1.x86_64.rpm
       - ls -lhrt
       - yum install libxkbcommon-0.7.1-1.amzn2.x86_64.rpm -y
+      - yum install at-spi2-core -y
+      - yum install at-spi2-atk -y
