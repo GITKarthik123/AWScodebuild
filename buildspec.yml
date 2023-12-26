@@ -13,11 +13,12 @@ phases:
       - yum install -y ruby
       - gem install chromedriver-helper
   
-      # Use chromedriver-install script to install Chromedriver
-      - chromedriver-install
+      # Use chromedriver-helper to install Chromedriver
+      - chromedriver-helper --verbose
   
       # Print the Chromedriver version for verification
       - chromedriver -v
+
 
   build:
     commands:
