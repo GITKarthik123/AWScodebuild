@@ -198,28 +198,28 @@ phases:
       - test_edge_driver_dependency_libraries=$(ldd /opt/msedgedriver | grep "not found" || echo "no matches")  && \
       - |
         if [[ "$test_edge_driver_dependency_libraries" != "no matches" ]]; then
-        echo "Edge Driver executable shared libraries check: FAILED"
-        echo "Missing libraries for edge driver executable: $test_edge_driver_dependency_libraries"
+        echo "Edge Driver executable shared libraries check FAILED"
+        echo "Missing libraries for edge driver executable $test_edge_driver_dependency_libraries"
         #exit 1; \
         fi
-      - echo "Edge Driver executable shared libraries check: PASSED"
+      - echo "Edge Driver executable shared libraries check PASSED"
       
 # Test edge executable shared libraries are available #
       - test_edge_dependency_libraries=$(ldd /opt/msedge/msedge | grep "not found" || echo "no matches")  && \
       - |
         if [[ "$test_edge_dependency_libraries" != "no matches" ]]; then
-        echo "Edge executable shared libraries check: FAILED"
-        echo "Missing libraries for edge executable: $test_edge_dependency_libraries"
+        echo "Edge executable shared libraries check FAILED"
+        echo "Missing libraries for edge executable $test_edge_dependency_libraries"
         #exit 1; \
         fi
-      - echo "Edge executable shared libraries check: PASSED"
+      - echo "Edge executable shared libraries check PASSED"
 
 # Test edge driver executable #
       - cd /opt && \
       - test_edge_driver=$(./msedgedriver -v | grep "$EDGE_VERSION_ID" || echo "no matches")  && \
       - |
         if [[ "$test_edge_driver" = "no matches" ]]; then
-        echo "Execute edge driver executable check: FAILED"
+        echo "Execute edge driver executable check FAILED"
         #exit 1; \
         fi && \
         echo "Edge driver version info = $test_edge_driver"
