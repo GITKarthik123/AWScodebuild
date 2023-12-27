@@ -225,7 +225,8 @@ phases:
       - echo "THIRD DOCKERFILE DONE"
       #- cp", "/tmp/chrome-layer.zip", "/tmp/edge-layer.zip", "/zip"]
       - ls -lhrt /tmp
-      - cp -R /tmp/chrome-layer.zip /tmp/edge-layer.zip /zip
+      - mkdir zip
+      - cp -R /tmp/chrome-layer.zip /tmp/edge-layer.zip zip/
       - ls -lhrt /zip
       # Your conditional commands
       - |
