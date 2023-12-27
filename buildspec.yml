@@ -189,6 +189,45 @@ phases:
         fi
       - echo "Chrome driver version info = $test_chrome_driver"
       - echo SECOND DOCKERFILE COMPLETED
+            #THIRD DOCKERFILE
+
+      - unzip /tmp/edge-layer.zip -d /opt
+      - LD_LIBRARY_PATH=/opt/lib
+
+# Test edge driver executable shared libraries are available #
+      - test_edge_driver_dependency_libraries=$(ldd /opt/msedgedriver | grep "not found" || echo "no matches")  && \
+      - |
+        if [[ "$test_edge_driver_dependency_libraries" != "no matches" ]]; then
+        echo "Edge Driver executable shared libraries check: FAILED"
+        echo "Missing libraries for edge driver executable: $test_edge_driver_dependency_libraries"
+        #exit 1; \
+        fi
+      - echo "Edge Driver executable shared libraries check: PASSED"
+      
+# Test edge executable shared libraries are available #
+      - test_edge_dependency_libraries=$(ldd /opt/msedge/msedge | grep "not found" || echo "no matches")  && \
+      - |
+        if [[ "$test_edge_dependency_libraries" != "no matches" ]]; then
+        echo "Edge executable shared libraries check: FAILED"
+        echo "Missing libraries for edge executable: $test_edge_dependency_libraries"
+        #exit 1; \
+        fi
+      - echo "Edge executable shared libraries check: PASSED"
+
+# Test edge driver executable #
+      - cd /opt && \
+      - test_edge_driver=$(./msedgedriver -v | grep "$EDGE_VERSION_ID" || echo "no matches")  && \
+      - |
+        if [[ "$test_edge_driver" = "no matches" ]]; then
+        echo "Execute edge driver executable check: FAILED"
+        #exit 1; \
+        fi && \
+        echo "Edge driver version info = $test_edge_driver"
+      - echo "THIRD DOCKERFILE DONE"
+      #- cp", "/tmp/chrome-layer.zip", "/tmp/edge-layer.zip", "/zip"]
+      - ls -lhrt /tmp
+      - cp -R /tmp/chrome-layer.zip /tmp/edge-layer.zip /zip
+      - ls -lhrt /zip
       # Your conditional commands
       - |
         if [ "$CODEBUILD_SOURCE_VERSION_TYPE" == "pull_request" ]; then
@@ -198,7 +237,6 @@ phases:
           echo "This is not a pull request build";
           # Additional commands for non-pull request build
         fi
-
     finally:
       - echo "Build Phase Finally"
 
