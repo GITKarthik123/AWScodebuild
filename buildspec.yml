@@ -227,7 +227,8 @@ phases:
       - ls -lhrt /tmp
       - mkdir zip
       - cp -R /tmp/chrome-layer.zip /tmp/edge-layer.zip zip/
-      - ls -lhrt /zip
+      - ls -lhrt /tmp
+      - ls -lhrt zip
       # Your conditional commands
       - |
         if [ "$CODEBUILD_SOURCE_VERSION_TYPE" == "pull_request" ]; then
