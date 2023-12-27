@@ -190,8 +190,7 @@ phases:
       - echo "Chrome driver version info = $test_chrome_driver"
       - echo SECOND DOCKERFILE COMPLETED
             #THIRD DOCKERFILE
-
-      - unzip /tmp/edge-layer.zip -d /opt
+      - unzip -o /tmp/edge-layer.zip -d /opt
       - LD_LIBRARY_PATH=/opt/lib
 
 # Test edge driver executable shared libraries are available #
